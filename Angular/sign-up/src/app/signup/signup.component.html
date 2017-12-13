@@ -1,0 +1,40 @@
+<div style="text-align:center" class="page-header">
+  <h1>
+    Sign Up
+  </h1>
+</div>
+<div class="container">
+   <div class="list-inline">
+      You are a:
+   </div>
+   <div class="radio-inline">
+      <label class="radio-inline" (click)="selectedUserType('farmer')">
+         <input type="radio" 
+         name="userType"
+         value="farmer" 
+         ngModel
+         >Farmer
+      </label>
+   </div>
+   <div class="radio-inline">
+      <label class="radio-inline" (click)="selectedUserType('retailer')">
+         <input type="radio" 
+         name="userType"
+         value="retailer" 
+         ngModel
+         >Retailer
+      </label>
+   </div>
+   <div *ngIf="userType">
+      <div class="jumbotron">
+         <div [ngSwitch]="userType">
+            <div *ngSwitchCase="'farmer'">
+               <app-step-1-farmer></app-step-1-farmer>
+            </div>
+            <div *ngSwitchCase="'retailer'">
+               <app-step-1-retailer></app-step-1-retailer>
+            </div>
+         </div>           
+      </div>
+   </div>
+</div>

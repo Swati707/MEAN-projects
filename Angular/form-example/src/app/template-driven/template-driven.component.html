@@ -1,0 +1,54 @@
+<div class="container">
+	<div class="jumbotron">
+		<form #frm="ngForm" (ngSubmit)="loginCredentials(frm)">
+			<div class="form-group">
+				<label for="username">
+					Username:
+				</label>
+				<input 
+				type="text"
+				name="username"
+				class="form-control"
+				ngModel 
+				#username="ngModel"
+				required
+				pattern="[a-zA-Z]+[0-9_]*[a-zA-Z]*" 
+				>	
+			</div>
+			<div *ngIf="username?.touched" class="alert alert-danger">
+				<div *ngIf="username.errors?.required">
+					Username is required!
+				</div>
+				<div *ngIf="username.errors?.pattern">
+					Invalid Username!
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="password">
+					Password:
+				</label>
+				<input 
+				type="text"
+				name="password"
+				class="form-control" 
+				ngModel
+				#password="ngModel"
+				required 
+				pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" 
+				>
+			</div>
+			<div *ngIf="password?.touched" class="alert alert-danger">
+				<div *ngIf="password.errors?.required">
+					Password is required!
+				</div>
+			</div>
+			<button type="submit" name="button" class="btn btn-success" [disabled]="frm.invalid">Log in</button>
+		</form>
+	</div>
+</div>
+
+<ul class="list-group">
+	<li *ngFor="let user of userList" class="list-group-item">
+		{{user.username}}		
+	</li>
+</ul>
