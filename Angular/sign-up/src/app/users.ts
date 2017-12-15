@@ -3,12 +3,14 @@ export interface Users{
 	age: number,
 	gender: string,
 	address: Address,
-	uadai: string,
-	contact: string[2]
+	aadhar: string,
+	mob1: string,
+	mob2: string
 }
 interface Address{
 	village: string,
 	citytown: string,
+	district: string,
 	state: string,
 	pin: string
 }

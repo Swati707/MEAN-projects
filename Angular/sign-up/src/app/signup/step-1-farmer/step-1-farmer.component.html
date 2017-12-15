@@ -1,11 +1,19 @@
-<form novalidate class="form-horizontal">
+<form novalidate [formGroup]="step1Form" (ngSubmit)="step1Submit()">
    <div class="form-group">
       <label for="name">
          Name:
       </label>
+      <label *ngIf="step1Form.get('name').touched && step1Form.get('name').invalid">
+         <label *ngIf="step1Form.get('name').hasError('required')" class="alert-warning">
+            Name is required!
+         </label>
+         <label *ngIf="step1Form.get('name').hasError('pattern')" class="alert-warning">
+            Invalid name!
+         </label>
+      </label>
       <input 
       type="text" 
-      name="name"
+      formControlName="name"
       class="form-control">
    </div>
    <div class="form-group">
@@ -14,28 +22,76 @@
       </label>
       <input 
       type="text" 
-      name="age"
+      formControlName="age"
       class="form-control">
    </div>
    <div class="form-group">
       <label for="gender">
          Gender:
       </label>
+      <label *ngIf="step1Form.get('gender').touched && step1Form.get('gender').invalid">
+         <label *ngIf="step1Form.get('gender').hasError('required')" class="alert-warning">
+            Gender is required!
+         </label>
+      </label>
+      <select formControlName="gender" class="form-control">
+         <option value="male">Male</option>
+         <option value="female">Female</option>
+         <option value="other">Other</option>
+      </select>
+   </div>
+   <div class="form-group">
+      <label for="aadhar">
+         Aadhar:
+      </label>
+      <label *ngIf="step1Form.get('aadhar').touched && step1Form.get('aadhar').invalid">
+         <label *ngIf="step1Form.get('aadhar').hasError('required')" class="alert-warning">
+            Aadhar is required!
+         </label>
+         <label *ngIf="step1Form.get('aadhar').hasError('pattern')" class="alert-warning">
+            Only digits are allowed!
+         </label>
+         <label *ngIf="(step1Form.get('aadhar').hasError('minlength') || step1Form.get('aadhar').hasError('maxlength')) && !step1Form.get('aadhar').hasError('pattern')" class="alert-warning">
+            Exactly 12 digits allowed!
+         </label>
+      </label>
       <input 
       type="text" 
-      name="gender"
+      formControlName="aadhar"
       class="form-control">
    </div>
    <div class="form-inline">
-      <label for="address">Address:</label>
       <div class="form-group">
-         <label for="village">
-            Village:
+         <label for="state">
+            State/UT:
          </label>
-         <input 
-         type="text" 
-         name="village"
-         class="form-control">
+         <label *ngIf="step1Form.get('state').touched && step1Form.get('state').invalid">
+            <label *ngIf="step1Form.get('state').hasError('required')" class="alert-warning">
+               State is required!
+            </label>
+         </label>
+         <select formControlName="state" class="form-control" (change)="onStateSelect($event.target.value)" id="state">
+            <option value="">--Select--</option>
+            <option *ngFor="let state of states" value={{state.id}}>
+               {{state.name}}
+            </option>
+         </select>
+      </div>
+      <div class="form-group">
+         <label for="district">
+            District:
+         </label>
+         <label *ngIf="step1Form.get('district').touched && step1Form.get('district').invalid">
+            <label *ngIf="step1Form.get('district').hasError('required')" class="alert-warning">
+               District is required!
+            </label>
+         </label>
+         <select formControlName="district" class="form-control" id="district">
+            <option value="">--Select--</option>
+            <option *ngFor="let district of districts" value={{district.id}}>
+               {{district.name}}
+            </option>
+         </select>
       </div>
       <div class="form-group">
          <label for="citytown">
@@ -43,17 +99,88 @@
          </label>
          <input 
          type="text" 
-         name="citytown"
-         class="form-control">
-      </div>
-      <div class="form-group">
-         <label for="state">
-            State/UT:
-         </label>
-         <input 
-         type="text" 
-         name="state"
+         formControlName="citytown"
          class="form-control">
       </div>
    </div>
+   <div class="form-inline">
+      <div class="form-group">
+         <label for="village">
+            Village:
+         </label>
+         <label *ngIf="step1Form.get('village').touched && step1Form.get('village').invalid">
+            <label *ngIf="step1Form.get('village').hasError('required')" class="alert-warning">
+               Village is required!
+            </label>
+         </label>
+         <input 
+         type="text" 
+         formControlName="village"
+         class="form-control">
+      </div>
+      <div class="form-group">
+         <label for="pin">
+            PIN:
+         </label>
+         <label *ngIf="step1Form.get('pin').touched && step1Form.get('pin').invalid">
+            <label *ngIf="step1Form.get('pin').hasError('required')" class="alert-warning">
+               PIN is required!
+            </label>
+            <label *ngIf="step1Form.get('pin').hasError('pattern')" class="alert-warning">
+               Only digits are allowed!
+            </label>
+            <label *ngIf="(step1Form.get('pin').hasError('minlength') || step1Form.get('pin').hasError('maxlength')) && !step1Form.get('pin').hasError('pattern')" class="alert-warning">
+               Exactly 6 digits allowed!
+            </label>
+         </label>
+         <input 
+         type="text" 
+         formControlName="pin"
+         class="form-control">
+      </div>
+   </div>
+   <div class="form-inline">
+      <div class="form-group">
+         <label for="mob1">
+            Mobile no. 1:
+         </label>
+         <label *ngIf="step1Form.get('mob1').touched && step1Form.get('mob1').invalid">
+            <label *ngIf="step1Form.get('mob1').hasError('required')" class="alert-warning">
+               Mobile no. 1 is required!
+            </label>
+            <label *ngIf="step1Form.get('mob1').hasError('pattern')" class="alert-warning">
+               Only digits are allowed!
+            </label>
+            <label *ngIf="(step1Form.get('mob1').hasError('minlength') || step1Form.get('mob1').hasError('maxlength')) && !step1Form.get('mob1').hasError('pattern')" class="alert-warning">
+               Exactly 10 digits allowed!
+            </label>
+         </label>
+         <input 
+         type="text" 
+         formControlName="mob1"
+         class="form-control">
+      </div>
+      <div class="form-group">
+         <label for="mob2">
+            Mobile no. 2:
+         </label>
+         <label *ngIf="step1Form.get('mob2').touched && step1Form.get('mob2').invalid">
+            <label *ngIf="step1Form.get('mob2').hasError('pattern')" class="alert-warning">
+               Only digits are allowed!
+            </label>
+            <label *ngIf="(step1Form.get('mob2').hasError('minlength') || step1Form.get('mob2').hasError('maxlength')) && !step1Form.get('mob2').hasError('pattern')" class="alert-warning">
+               Exactly 10 digits allowed!
+            </label>
+         </label>
+         <input 
+         type="text" 
+         formControlName="mob2"
+         class="form-control">
+      </div>
+   </div>
+   <button type="submit" class="btn btn-success" style="float: right;" [disabled]="step1Form.invalid">Next</button>
+   <button type="reset" class="btn btn-toolbar" style="float: right;">Reset</button>
 </form>
+<div>
+   
+</div>

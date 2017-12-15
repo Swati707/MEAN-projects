@@ -1,7 +1,7 @@
 import { Users } from './users';
 
-export interface Farmers{
-	userDetails: Users,
+export interface Farmers extends Users{
+	//user: Users,
 	farmingType: string[],
 	cropsProduced: string[]
 }

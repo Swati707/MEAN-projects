@@ -5,8 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
-import { Step1FarmerComponent } from './signup/step-1/step-1-farmer/step-1-farmer.component';
-import { Step1RetailerComponent } from './signup/step-1/step-1-retailer/step-1-retailer.component';
+import { Step1FarmerComponent } from './signup/step-1-farmer/step-1-farmer.component';
+import { Step1RetailerComponent } from './signup/step-1-retailer/step-1-retailer.component';
 import { Step2FarmerComponent } from './signup/step-2-farmer/step-2-farmer.component';
 import { Step2RetailerComponent } from './signup/step-2-retailer/step-2-retailer.component';
 

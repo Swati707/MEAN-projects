@@ -26,10 +26,11 @@
       </label>
    </div>
    <div *ngIf="userType">
-      <div class="jumbotron">
+      <div>
+         <h3>Enter the following details:</h3>
          <div [ngSwitch]="userType">
             <div *ngSwitchCase="'farmer'">
-               <app-step-1-farmer></app-step-1-farmer>
+               <app-step-1-farmer (transferEvent)="receiveEvent($event)"></app-step-1-farmer>
             </div>
             <div *ngSwitchCase="'retailer'">
                <app-step-1-retailer></app-step-1-retailer>
